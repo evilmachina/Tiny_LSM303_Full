@@ -20,13 +20,13 @@
 #else
  #include "WProgram.h"
 #endif
-#include "Wire.h"
+#include "TinyWireM.h"
 
 #define LSM303_ADDRESS_ACCEL          (0x32 >> 1)         // 0011001x
 #define LSM303_ADDRESS_MAG            (0x3C >> 1)         // 0011110x
 #define LSM303_ID                     (0b11010100)
 
-class Adafruit_LSM303
+class Adafruit_TinyLSM303_Full
 {
   public:
     typedef enum
@@ -95,22 +95,22 @@ class Adafruit_LSM303
 	
     typedef struct lsm303AccelData_s
     {
-      float x;
-      float y;
-      float z;
+      int32_t x;
+      int32_t y;
+      int32_t z;
     } lsm303AccelData;
 	
 	typedef struct lsm303MagData_s
 	{
-      float x;
-      float y;
-      float z;
-	  float orientation;
+      int32_t x;
+      int32_t y;
+      int32_t z;
+	    int32_t orientation;
 	} lsm303MagData;
 
     bool begin(void);
     void read(void);
-	void setMagGain(lsm303MagGain gain);
+	  void setMagGain(lsm303MagGain gain);
 
     lsm303AccelData accelData;    // Last read accelerometer data will be available here
     lsm303MagData magData;        // Last read magnetometer data will be available here
